@@ -9,16 +9,30 @@ export class ShoppingListService {
 
   private ingredientsName: string[] = this.ingredients.map(ing => ing.name)
 
-
   getIngredients() {
     return this.ingredients.slice();
   }
 
-  ingredientAdded = new Subject<Ingredient[]>()
+  getIngredient(i: number) {
+    return {...this.ingredients[i]}
+  }
+
+  ingredientsChanged = new Subject<Ingredient[]>()
+  ingredientStartedEditing = new Subject<number>()
 
   addIngredient(ingredient: Ingredient) {
     this.ingredients.push(ingredient)
-    this.ingredientAdded.next(this.ingredients.slice())
+    this.ingredientsChanged.next(this.ingredients.slice())
+  }
+
+  updateIngredient(index: number, updatedIngredient: Ingredient) {
+    this.ingredients[index] = updatedIngredient;
+    this.ingredientsChanged.next(this.ingredients.slice())
+  }
+
+  deleteIngredient(index: number) {
+    this.ingredients.splice(index, 1)
+    this.ingredientsChanged.next(this.ingredients.slice())
   }
 
   addIngredients(ingredients: Ingredient[]) {
@@ -32,6 +46,6 @@ export class ShoppingListService {
       }
     }
     this.ingredientsName = this.ingredients.map(ing => ing.name)
-    this.ingredientAdded.next(this.ingredients.slice())
+    this.ingredientsChanged.next(this.ingredients.slice())
   }
 }

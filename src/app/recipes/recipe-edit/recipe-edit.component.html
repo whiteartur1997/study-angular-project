@@ -1,1 +1,72 @@
-<p>recipe-edit works!</p>
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-xs-12">
+          <button style="margin-right: 10px" type="submit" class="btn btn-success">Save</button>
+          <button type="button" class="btn btn-danger">Cancel</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <label for="name">Name</label>
+          <input
+            formControlName="name"
+            id="name"
+            type="text"
+            class="form-control">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <label for="imagePath">Image URL</label>
+          <input
+            id="imagePath"
+            type="text"
+            class="form-control"
+            formControlName="imagePath">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <img src="" alt="" class="img-responsive">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <label for="description">Description</label>
+          <textarea
+            formControlName="description"
+            rows="6"
+            class="form-control"
+            type="text"
+            id="description"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12" formArrayName="ingredients">
+          <div class="row" [formGroupName]="i" *ngFor="let ingredient of controls; let i = index">
+            <div class="row">
+              <div class="col-xs-8">
+                <input
+                  formControlName="name"
+                  type="text"
+                  class="form-control"
+                  >
+              </div>
+              <div class="col-xs-2">
+                <input
+                  formControlName="amount"
+                  type="number"
+                  class="form-control">
+              </div>
+              <div class="col-xs-2">
+                <button class="btn btn-danger">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
